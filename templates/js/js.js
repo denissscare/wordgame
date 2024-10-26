@@ -11,10 +11,9 @@ const getWordFromBack = word => {
     fetch(`http://127.0.0.1:8000/getWord/${word}`)
         .then(resp => resp.json())
         .then(data => {
-            console.log('пришло ');
             console.log(data);
-            if (data.valideWords === 403) {
-                printErrorMessage(data.letters);
+            if (data.hasOwnProperty('detail')) {
+                printErrorMessage(data.detail);
             }
         })
         .catch(err => console.error('Ошибка: ' + err))
