@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from .routes.game import game
+from .routes import game_route
 
 app = FastAPI()
 
@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(game)
+app.include_router(game_route)
 
 
 @app.get('/')
