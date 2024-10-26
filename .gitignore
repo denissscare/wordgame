@@ -1,0 +1,5 @@
+venv
+app/utils/config.py
+.mypy_cache
+.htaccess
+__pycache__
