@@ -1,11 +1,16 @@
 import asyncio
 import itertools
 from typing import Any, Awaitable
+from fastapi import HTTPException
 
 import aiohttp
-# from . import config
+from dotenv import load_dotenv
+import os
 
-URL = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20241023T115255Z.2dabe9097d8752fb.2dddff22b6bf055a3e4dfe504dc9239ea9c4d36d&lang=ru-ru&text='
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN") 
+URL = f'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={TOKEN}&lang=ru-ru&text='
 
 
 def generate_words(word:str) -> tuple[set, set]:
@@ -24,15 +29,15 @@ def generate_words(word:str) -> tuple[set, set]:
 async def dict_handler(array: set) -> list | dict:
     async with aiohttp.ClientSession() as session:
         tasks = []
-        check = session.get(URL)
-        print(await check)
+        async with session.get(URL) as resp:
+            message = await resp.json()
+            if message['code'] == 403:
+                raise HTTPException(status_code=message['code'], detail = message['message'])
+                
         for word in array:
             tasks.append(asyncio.create_task(session.get(URL + word)))
         responses = await asyncio.gather(*tasks)
         data = [await r.json() for r in responses]
-
-        if data[0]['code'] == 403:
-            return data[0]
         return data
 
 
@@ -59,4 +64,6 @@ if __name__ == '__main__':
 
     arr = generate_words('хлеб')
     words = asyncio.run(dict_handler(arr[0]))
+
+    print(arr[0])
     # print(get_valide_word(words))
