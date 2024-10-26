@@ -11,9 +11,13 @@ const getWordFromBack = word => {
     fetch(`http://127.0.0.1:8000/getWord/${word}`)
         .then(resp => resp.json())
         .then(data => {
-            if (data.valideWords === 403) printErrorMessage(data.letters);
+            console.log('пришло ');
+            console.log(data);
+            if (data.valideWords === 403) {
+                printErrorMessage(data.letters);
+            }
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error('Ошибка: ' + err))
 }
 
 const addButtons = (letters) => {

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from .routes.game import game
 
 app = FastAPI()
 
@@ -13,3 +14,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(game)
+
+
+@app.get('/')
+def root():
+    return {'message': 'hellow'}
