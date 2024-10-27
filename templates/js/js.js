@@ -15,15 +15,21 @@ const getWordFromBack = word => {
             if (data.hasOwnProperty('detail')) {
                 printErrorMessage(data.detail);
             }
+            addButtons(data.letters)
         })
         .catch(err => console.error('Ошибка: ' + err))
 }
 
 const addButtons = (letters) => {
     const buttons = document.getElementById("buttons");
-    for(let i = 0; i < letters.lenght; i++){
+    console.log(letters.length);
+    for(let i = 0; i < letters.length; i++){
         let div = document.createElement('div');
         div.className = 'button';
+        const h = document.createElement('H1');
+        h.className = 'letter';
+        h.innerHTML = letters[i].toUpperCase();
+        div.appendChild(h);
         buttons.append(div);
     }
 }

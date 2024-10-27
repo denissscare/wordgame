@@ -75,6 +75,8 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
 }
 .button:hover {
     background-color: rgba(0, 0, 0, 0.05);
@@ -88,4 +90,7 @@
     margin: 30px;
     font-size: 60px;
     letter-spacing: 0.2em;
+}
+.letter {
+    margin: 0 auto;
 }
