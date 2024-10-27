@@ -3,4 +3,4 @@ venv
 .mypy_cache
 .htaccess
 __pycache__
-app/db/database.db
+words.db
