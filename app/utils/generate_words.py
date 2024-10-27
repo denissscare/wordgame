@@ -7,6 +7,8 @@ import aiohttp
 from dotenv import load_dotenv
 import os
 
+from ..db.db import engine
+
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN") 
@@ -57,6 +59,7 @@ async def gets_words(word: str) -> tuple:
 
     letters = array_of_words[1]
     valide_word = get_valide_word(words)
+    
     return (valide_word, letters)
 
 
