@@ -10,4 +10,3 @@ class WordsBase(Base):
     word = Column(String)
     sub_words:Column = Column(ARRAY(String, dimensions=1))
     
-    

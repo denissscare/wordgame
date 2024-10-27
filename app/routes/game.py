@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from ..utils.generate_words import gets_words
-from ..db.db import engine
+from ..db.init_db import engine
 from sqlalchemy.orm import Session
 from sqlalchemy import select 
 from ..models.words import WordsBase
@@ -13,8 +13,9 @@ game = APIRouter()
 async def get_word(word: str):
     with Session(engine) as session:
         statement = select(WordsBase).where(WordsBase.word == word)
+        objects = session.scalars(statement).all()
+        print(objects)
         if(statement):
-            objects = session.scalars(statement).all()
             return object
         data = await gets_words(word = word)
         return {"valideWords": data[0], "letters": data[1]}

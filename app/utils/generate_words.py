@@ -7,7 +7,7 @@ import aiohttp
 from dotenv import load_dotenv
 import os
 
-from ..db.db import engine
+from ..db.init_db import engine
 
 load_dotenv()
 
